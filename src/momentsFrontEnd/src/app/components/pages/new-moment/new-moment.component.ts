@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Moment } from 'src/app/Moment.ts';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MomentService } from 'src/app/services/moment.service';
+
+import { Router } from '@angular/router';
+
 import { MessagesService } from 'src/app/services/messages.service';
+import { Moment } from 'src/app/Moment';
 
 @Component({
   selector: 'app-new-moment',
@@ -13,13 +15,22 @@ import { MessagesService } from 'src/app/services/messages.service';
 })
 export class NewMomentComponent implements OnInit {
   btnText = "Compartilhar";
+  image?: File;
 
   constructor(
-    private momentService: MomentService, 
-    private messagesService: MessagesService,
-    private router: Router) { }
+    private momentService: MomentService,
+    private router: Router, 
+    private messagesService: MessagesService) { }
 
   ngOnInit(): void {}
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    this.image = file;
+  }
+
+  buildForm() {}
 
  async createHandler(moment: Moment){
     const formData = new FormData()
